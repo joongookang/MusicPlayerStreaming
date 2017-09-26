@@ -1,9 +1,11 @@
 package com.example.tg.musicplayer.streamer;
 
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -16,15 +18,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.tg.musicplayer.Http.FileItem;
 import com.example.tg.musicplayer.Http.HttpSender;
 import com.example.tg.musicplayer.Http.StaticVals;
 import com.example.tg.musicplayer.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.concurrent.TimeUnit;
 
 
 public class PlayerContlloer extends AppCompatActivity {
-    private Button b1, b2, b3, b4;
+    private Button b1, b2, b3, b4, b5;
     private ImageView iv;
     private SeekBar seekbar;
     private TextView tx1, tx2, tx3;
@@ -44,9 +48,11 @@ public class PlayerContlloer extends AppCompatActivity {
         b2 = (Button) findViewById(R.id.button2);
         b3 = (Button) findViewById(R.id.button3);
         b4 = (Button) findViewById(R.id.button4);
+        b5 = (Button) findViewById(R.id.button5);
         iv = (ImageView) findViewById(R.id.imageView);
         tx1 = (TextView) findViewById(R.id.textView2);
         tx2 = (TextView) findViewById(R.id.textView3);
+        tx3 = (TextView) findViewById(R.id.textView4);
         seekbar = (SeekBar) findViewById(R.id.seekBar);
         seekbar.setClickable(false);
         int i;
@@ -140,6 +146,19 @@ public class PlayerContlloer extends AppCompatActivity {
                     mediaPlayer.seekTo(progress);
             }
         });
+        b5.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (++currentPosition >= StaticVals.Directory.size()) {
+                    // 마지막 곡이 끝나면, 재생할 곡을 초기화합니다.
+                    currentPosition = 0;
+                    StartMusic(HttpSender.URL + "/download?name=" + StaticVals.Directory.get(currentPosition));
+                } else {
+                    // 다음 곡을 재생합니다.
+                    Toast.makeText(getApplicationContext(), "다음 곡을 재생합니다.", Toast.LENGTH_SHORT).show();
+                    StartMusic(HttpSender.URL + "/download?name=" + StaticVals.Directory.get(currentPosition));
+                }
+            }
+        });
 
     }
 
@@ -196,6 +215,7 @@ public class PlayerContlloer extends AppCompatActivity {
                     );
 
                     seekbar.setProgress((int) startTime);
+                    tx3.setText(StaticVals.Directory.get(currentPosition));
                     myHandler.postDelayed(UpdateSongTime, 100);
                     mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                         public void onCompletion(MediaPlayer arg0) {

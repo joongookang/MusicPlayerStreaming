@@ -43,8 +43,8 @@
             android:layout_height="wrap_content"
             android:gravity="center">
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
                 android:text="빨리감기"
                 android:id="@+id/button"
                 android:layout_alignParentBottom="true"
@@ -52,8 +52,8 @@
                 android:layout_alignParentStart="true" />
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
                 android:text="정지"
                 android:id="@+id/button2"
                 android:layout_alignParentBottom="true"
@@ -61,17 +61,25 @@
                 android:layout_toEndOf="@+id/button" />
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
                 android:text="재생"
                 android:id="@+id/button3"
                 android:layout_alignParentBottom="true" />
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
                 android:text="되감기"
                 android:id="@+id/button4"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@+id/seekBar"
+                android:layout_toEndOf="@+id/seekBar" />
+            <Button
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:text="다음곡"
+                android:id="@+id/button5"
                 android:layout_alignParentBottom="true"
                 android:layout_toRightOf="@+id/seekBar"
                 android:layout_toEndOf="@+id/seekBar" />
@@ -89,38 +97,45 @@
                 android:layout_alignEnd="@+id/textview"
                 android:layout_above="@+id/button" />
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Small Text"
-                android:id="@+id/textView2"
-                android:paddingLeft="25dp"
-                android:layout_above="@+id/seekBar"
-                android:layout_toLeftOf="@+id/textView"
-                android:layout_toStartOf="@+id/textView" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Medium Text"
-                android:id="@+id/textView4"
-                android:paddingLeft="60dp"
-                android:layout_alignBaseline="@+id/textView2"
-                android:layout_alignBottom="@+id/textView2"
-                android:layout_centerHorizontal="true" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Small Text"
-                android:id="@+id/textView3"
-                android:paddingLeft="45dp"
-                android:layout_above="@+id/seekBar"
-                android:layout_alignRight="@+id/button4"
-                android:layout_alignEnd="@+id/button4" />
-        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/seekBar"
+            android:layout_toLeftOf="@+id/textView"
+            android:layout_toStartOf="@+id/textView"
+            android:paddingLeft="25dp"
+            android:text="Small Text"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/seekBar"
+            android:layout_alignEnd="@+id/button4"
+            android:layout_alignRight="@+id/button4"
+            android:paddingLeft="200dp"
+            android:text="Small Text"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </LinearLayout>
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <TextView
+        android:layout_gravity="center"
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView2"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    </HorizontalScrollView>
 </LinearLayout>
