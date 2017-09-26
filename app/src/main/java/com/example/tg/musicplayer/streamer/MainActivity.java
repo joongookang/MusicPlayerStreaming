@@ -1,14 +1,15 @@
 package com.example.tg.musicplayer.streamer;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.example.tg.musicplayer.Http.FileItem;
 import com.example.tg.musicplayer.Http.GetListSender;
@@ -26,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
     private Context mainContext;
     private RecyclerView listView;
     private MediaPlayer mediaPlayer;
+    private TextView text;
+    private final static int LOADER_ID = 0x001;
+    public String requsturl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
         HttpSender sender = new GetListSender(new ResultHandler(mainContext));
         sender.setBodyContents();
         sender. send();
+
+
 
     }
 
@@ -76,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         url = url+ URLEncoder.encode(contents + item.fileName,"UTF-8");
+                        requsturl=url;
                         StartMusic(url);
                     }catch (Exception e){
                         Log.e("MUSIC",e.getMessage());
@@ -112,9 +119,14 @@ public class MainActivity extends AppCompatActivity {
             mediaPlayer.prepareAsync();
             mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
-                public void onPrepared(MediaPlayer mp) {
+                public void onPrepared(final MediaPlayer mp) {
                     Log.e("PREPARED", "STARTING Music");
-                    mp.start();
+//                    mp.start();
+                    Intent intent = new Intent(MainActivity.this, PlayerContlloer.class);
+                    intent.putExtra("url",requsturl);
+                    startActivity(intent);
+
+
                 }
             });
 
@@ -122,10 +134,6 @@ public class MainActivity extends AppCompatActivity {
             Log.e("MusicPlayer", e.getMessage());
         }
     }
-
-
-
-
 
 
 }

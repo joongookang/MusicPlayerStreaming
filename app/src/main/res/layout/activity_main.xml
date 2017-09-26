@@ -1,24 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:id="@+id/activity_main"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".streamer.MainActivity">
-    <TextView
-        android:paddingLeft="8dp"
-        android:gravity="center_vertical"
-        android:text="Music List"
-        android:textSize="18sp"
-        android:layout_width="match_parent"
-        android:layout_height="48dp" />
-
+    tools:context="com.example.tg.musicplayer.streamer.MainActivity">
     <android.support.v7.widget.RecyclerView
         android:layout_weight="1"
         android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-
-
+        android:layout_height="wrap_content"/>
 </LinearLayout>

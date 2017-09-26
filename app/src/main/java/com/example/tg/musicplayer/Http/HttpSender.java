@@ -20,7 +20,7 @@ public abstract class HttpSender {
 
     private static final String TAG = "HTTPSender";
 
-    public static final String URL = "http://172.19.1.124:8080/";
+    public static final String URL = "http://172.19.1.191:8080/";
 
     protected String apiName;
     protected RequestBody body;
