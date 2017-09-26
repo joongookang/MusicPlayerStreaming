@@ -45,6 +45,7 @@ public class PlayerContlloer extends AppCompatActivity {
         tx2=(TextView)findViewById(R.id.textView3);
         seekbar=(SeekBar)findViewById(R.id.seekBar);
         seekbar.setClickable(false);
+        int i;
         Intent intent = getIntent();
         String url = intent.getExtras().getString("url");
         StartMusic(url);
