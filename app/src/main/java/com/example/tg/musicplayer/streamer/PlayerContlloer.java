@@ -16,16 +16,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.tg.musicplayer.Http.HttpSender;
+import com.example.tg.musicplayer.Http.StaticVals;
 import com.example.tg.musicplayer.R;
 
 import java.util.concurrent.TimeUnit;
 
 
 public class PlayerContlloer extends AppCompatActivity {
-    private Button b1,b2,b3,b4;
+    private Button b1, b2, b3, b4;
     private ImageView iv;
     private SeekBar seekbar;
-    private TextView tx1,tx2,tx3;
+    private TextView tx1, tx2, tx3;
     private MediaPlayer mediaPlayer;
     private int backwardTime = 5000;
     private double startTime = 0;
@@ -33,27 +35,28 @@ public class PlayerContlloer extends AppCompatActivity {
     private int forwardTime = 5000;
     private Handler myHandler = new Handler();
     public static int oneTimeOnly = 0;
+    private int currentPosition = 0;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contlloer);
         b1 = (Button) findViewById(R.id.button);
         b2 = (Button) findViewById(R.id.button2);
-        b3=(Button)findViewById(R.id.button3);
-        b4=(Button)findViewById(R.id.button4);
-        iv=(ImageView)findViewById(R.id.imageView);
-        tx1=(TextView)findViewById(R.id.textView2);
-        tx2=(TextView)findViewById(R.id.textView3);
-        seekbar=(SeekBar)findViewById(R.id.seekBar);
+        b3 = (Button) findViewById(R.id.button3);
+        b4 = (Button) findViewById(R.id.button4);
+        iv = (ImageView) findViewById(R.id.imageView);
+        tx1 = (TextView) findViewById(R.id.textView2);
+        tx2 = (TextView) findViewById(R.id.textView3);
+        seekbar = (SeekBar) findViewById(R.id.seekBar);
         seekbar.setClickable(false);
         int i;
         Intent intent = getIntent();
         String url = intent.getExtras().getString("url");
         StartMusic(url);
-        b3.setEnabled(false);
+//        b3.setEnabled(false);
         b3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Playing sound",Toast.LENGTH_SHORT).show();
                 mediaPlayer.start();
 
                 finalTime = mediaPlayer.getDuration();
@@ -75,35 +78,32 @@ public class PlayerContlloer extends AppCompatActivity {
                                 TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) startTime)))
                 );
 
-                seekbar.setProgress((int)startTime);
-                myHandler.postDelayed(UpdateSongTime,100);
-                b2.setEnabled(true);
-                b3.setEnabled(false);
+                seekbar.setProgress((int) startTime);
+                myHandler.postDelayed(UpdateSongTime, 100);
+//                b2.setEnabled(true);
+//                b3.setEnabled(false);
             }
         });
 
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Pausing sound",Toast.LENGTH_SHORT).show();
                 mediaPlayer.pause();
-                b2.setEnabled(false);
-                b3.setEnabled(true);
+//                b2.setEnabled(false);
+//                b3.setEnabled(true);
             }
         });
 
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int temp = (int)startTime;
+                int temp = (int) startTime;
 
-                if((temp+forwardTime)<=finalTime){
+                if ((temp + forwardTime) <= finalTime) {
                     startTime = startTime + forwardTime;
                     mediaPlayer.seekTo((int) startTime);
-                    Toast.makeText(getApplicationContext(),"You have Jumped forward 5 seconds",Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Toast.makeText(getApplicationContext(),"Cannot jump forward 5 seconds",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Cannot jump forward 5 seconds", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -111,16 +111,33 @@ public class PlayerContlloer extends AppCompatActivity {
         b4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int temp = (int)startTime;
+                int temp = (int) startTime;
 
-                if((temp-backwardTime)>0){
+                if ((temp - backwardTime) > 0) {
                     startTime = startTime - backwardTime;
                     mediaPlayer.seekTo((int) startTime);
-                    Toast.makeText(getApplicationContext(),"You have Jumped backward 5 seconds",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Cannot jump backward 5 seconds", Toast.LENGTH_SHORT).show();
                 }
-                else{
-                    Toast.makeText(getApplicationContext(),"Cannot jump backward 5 seconds",Toast.LENGTH_SHORT).show();
-                }
+            }
+        });
+        seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress,
+                                          boolean fromUser) {
+                // TODO Auto-generated method stub
+                if(fromUser)
+                    mediaPlayer.seekTo(progress);
             }
         });
 
@@ -137,7 +154,7 @@ public class PlayerContlloer extends AppCompatActivity {
                             TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.
                                     toMinutes((long) startTime)))
             );
-            seekbar.setProgress((int)startTime);
+            seekbar.setProgress((int) startTime);
             myHandler.postDelayed(this, 100);
         }
     };
@@ -145,7 +162,7 @@ public class PlayerContlloer extends AppCompatActivity {
     public void StartMusic(String url) {
         try {
 
-            if(mediaPlayer!=null){
+            if (mediaPlayer != null) {
                 mediaPlayer.stop();
             }
 
@@ -178,9 +195,13 @@ public class PlayerContlloer extends AppCompatActivity {
                                     TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) startTime)))
                     );
 
-                    seekbar.setProgress((int)startTime);
-                    myHandler.postDelayed(UpdateSongTime,100);
-
+                    seekbar.setProgress((int) startTime);
+                    myHandler.postDelayed(UpdateSongTime, 100);
+                    mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        public void onCompletion(MediaPlayer arg0) {
+                            nextSong();
+                        }
+                    });
                 }
             });
 
@@ -189,6 +210,19 @@ public class PlayerContlloer extends AppCompatActivity {
         }
     }
 
-
-
+    private void nextSong() {
+        if (++currentPosition >= StaticVals.Directory.size()) {
+            // 마지막 곡이 끝나면, 재생할 곡을 초기화합니다.
+            currentPosition = 0;
+        } else {
+            // 다음 곡을 재생합니다.
+            Toast.makeText(getApplicationContext(), "다음 곡을 재생합니다.", Toast.LENGTH_SHORT).show();
+            StartMusic(HttpSender.URL + "/download?name=" + StaticVals.Directory.get(currentPosition));
+        }
+    }
 }
+
+
+
+
+

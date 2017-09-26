@@ -48,6 +48,7 @@ public class ResultHandler extends Handler {
 
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 list.add(new FileItem(jsonObject.getString("fileName"), jsonObject.getBoolean("file")));
+                StaticVals.Directory.add(jsonObject.getString("fileName"));
             }
         } catch (JSONException e) {
             e.printStackTrace();
