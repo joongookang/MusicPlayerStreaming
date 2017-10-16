@@ -22,7 +22,8 @@ public abstract class bluetoothmulti {
         bluetoothSocketArrayList = new ArrayList<>();
         for (BluetoothDevice device : bluetoothAdapter.getBondedDevices()) {
             try {
-                bluetoothSocketArrayList.add(device.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805f9b34fb")));
+                bluetoothSocketArrayList.add(device.createRfcommSocketToServiceRecord(UUID.fromString("98:D3:FB:62:61")));
+                bluetoothSocketArrayList.add(device.createRfcommSocketToServiceRecord(UUID.fromString("98:D3:FD:26:DF")));
             } catch (IOException e) {
                 e.printStackTrace();
             }
