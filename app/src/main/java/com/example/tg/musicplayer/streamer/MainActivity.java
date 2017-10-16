@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
                         url = url+ URLEncoder.encode(contents + item.fileName,"UTF-8");
                         requsturl=url;
-                        StartMusic(url);
+                        StartMusic(url,position);
                     }catch (Exception e){
                         Log.e("MUSIC",e.getMessage());
 
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         Log.e("REQDIRNAME", requestDirName);
         sender.send();
     }
-    public void StartMusic(String url) {
+    public void StartMusic(String url, final int po) {
         try {
 
             if(mediaPlayer!=null){
@@ -122,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onPrepared(final MediaPlayer mp) {
                     Log.e("PREPARED", "STARTING Music");
 //                    mp.start();
+                    StaticVals.Index=po;
                     Intent intent = new Intent(MainActivity.this, PlayerContlloer.class);
                     intent.putExtra("url",requsturl);
                     startActivity(intent);

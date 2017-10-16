@@ -58,6 +58,7 @@ public class PlayerContlloer extends AppCompatActivity {
         int i;
         Intent intent = getIntent();
         String url = intent.getExtras().getString("url");
+        currentPosition = StaticVals.Index;
         StartMusic(url);
 //        b3.setEnabled(false);
         b3.setOnClickListener(new View.OnClickListener() {
