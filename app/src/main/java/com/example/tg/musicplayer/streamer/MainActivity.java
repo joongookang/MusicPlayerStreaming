@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.example.tg.musicplayer.Bluetooth.bluetoothmulti;
 import com.example.tg.musicplayer.Http.FileItem;
 import com.example.tg.musicplayer.Http.GetListSender;
 import com.example.tg.musicplayer.Http.HttpSender;
@@ -37,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         mainContext = this;
         initFindViewByld();
         HttpSender sender = new GetListSender(new ResultHandler(mainContext));
+        bluetoothmulti mult = new bluetoothmulti() ;
+        mult.multi();
         sender.setBodyContents();
         sender. send();
 

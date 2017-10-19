@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 
-public abstract class bluetoothmulti {
+public  class bluetoothmulti {
     BluetoothAdapter bluetoothAdapter;
     ArrayList<BluetoothSocket> bluetoothSocketArrayList = null;
     public void multi()
