@@ -13,17 +13,15 @@ import java.util.List;
 import java.util.UUID;
 
 
-public  class bluetoothmulti {
-    BluetoothAdapter bluetoothAdapter;
-    ArrayList<BluetoothSocket> bluetoothSocketArrayList = null;
-    public void multi()
-    {
+public class bluetoothmulti extends Thread{
+    public void run() {
+        BluetoothAdapter bluetoothAdapter;
+        ArrayList<BluetoothSocket> bluetoothSocketArrayList = null;
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         bluetoothSocketArrayList = new ArrayList<>();
         for (BluetoothDevice device : bluetoothAdapter.getBondedDevices()) {
             try {
-                bluetoothSocketArrayList.add(device.createRfcommSocketToServiceRecord(UUID.fromString("98:D3:FB:62:61")));
-                bluetoothSocketArrayList.add(device.createRfcommSocketToServiceRecord(UUID.fromString("98:D3:FD:26:DF")));
+                bluetoothSocketArrayList.add(device.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805f9b34fb")));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -37,5 +35,4 @@ public  class bluetoothmulti {
             }
         }
     }
-
 }

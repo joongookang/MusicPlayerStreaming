@@ -1,5 +1,8 @@
 package com.example.tg.musicplayer.streamer;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -21,8 +24,11 @@ import com.example.tg.musicplayer.Http.SimpleDividerItemDecoration;
 import com.example.tg.musicplayer.R;
 import com.example.tg.musicplayer.Http.StaticVals;
 
+import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
     private Context mainContext;
@@ -39,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         initFindViewByld();
         HttpSender sender = new GetListSender(new ResultHandler(mainContext));
         bluetoothmulti mult = new bluetoothmulti() ;
-        mult.multi();
+        mult.run();
         sender.setBodyContents();
         sender. send();
 
